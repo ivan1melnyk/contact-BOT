@@ -1,5 +1,8 @@
 
-USERS_CONTACTS = {}
+USERS_CONTACTS = {
+    'Ivan': '0962053326',
+    'Myron': '0631389599'
+}
 
 
 def input_error(func):
@@ -17,65 +20,77 @@ def input_error(func):
 
 
 def hello():
-    print("How can I help you?")
+    return "How can I help you?"
 
 
 @input_error
 def add(user_input):
-    print(user_input)
+    # print(user_input)
     USERS_CONTACTS[user_input[1]] = user_input[2]
-    print('ADD USERS_CONTACTS:', user_input[1], 'NUMER:', user_input[2])
+    return '{:<22} {:^10} {:>4} {:<7} {:^10}'.format('ADD USERS_CONTACTS:', user_input[1], '|', 'NUMER:', user_input[2])
 
 
 @input_error
 def change(user_input):
-    print(user_input)
+    # print(user_input)
     USERS_CONTACTS[user_input[1]] = user_input[2]
-    print('CHANGE USERS_CONTACTS:', user_input[1], 'NUMER:', user_input[2])
+    return '{:<22} {:^10} {:>4} {:<7} {:^10}'.format('CHANGE USERS_CONTACTS:', user_input[1], '|', 'NUMER:', user_input[2])
 
 
 @input_error
 def phone(user_input):
     try:
-        print(USERS_CONTACTS[user_input[1]])
+        name = user_input[1]
+        number = USERS_CONTACTS[user_input[1]]
+        return '{:^5} {:^10} {:^7} {:^10}'.format('Name:', name, 'Number:', number)
     except IndexError:
-        print('Enter user name')
+        return 'Enter user name'
     except KeyError:
-        print('This contact doesn\'t exist')
+        return 'This contact doesn\'t exist'
 
 
 def show_all():
     if USERS_CONTACTS == {}:
-        print('Your contacts list is empty')
+        return 'Your contacts list is empty'
+    users_list = list()
     for name, number in USERS_CONTACTS.items():
-        # print(f'Name:{contact[0]}','Number:'{contact[1]})
-        print('{:^5} {:^10} {:^7} {:^10}'.format(
+        users_list.append('{:^5} {:^10} {:^7} {:^10}'.format(
             'Name:', name, 'Number:', number))
+    return users_list
 
 
 def bye_bye():
-    print("Good bye!")
+    return "Good bye!"
+
+
+def main(result):
+    if isinstance(result, list):
+        for str_user in result:
+            print(str_user)
+    else:
+        print(result)
 
 
 while True:
     user_input = input()
     if user_input == "hello":
-        hello()
+        result = hello()
     elif user_input.startswith("add"):
-        add(user_input)
+        result = add(user_input)
     elif user_input.startswith("change"):
-        change(user_input)
+        result = change(user_input)
     elif user_input.startswith("phone"):
-        phone(user_input)
+        result = phone(user_input)
     elif user_input == "show all":
-        show_all()
+        result = show_all()
     elif user_input == "good bye" or user_input == "close" or user_input == "exit":
-        bye_bye()
+        result = bye_bye()
     elif user_input == '.':
         break
     else:
         print('//Error')
         print('//Unknown comand')
+    main(result)
 
 
 # print мають бути в функції main, тільки в ній
