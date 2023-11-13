@@ -1,8 +1,5 @@
 
-USERS_CONTACTS = {
-    'Ivan': '0962053326',
-    'Myron': '0631389599'
-}
+USERS_CONTACTS = {}
 
 
 def input_error(func):
