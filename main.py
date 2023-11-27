@@ -25,16 +25,9 @@ class Name(Field):
 
 
 class Phone(Field):
-
-    def __init__(self, phone):
-        if len(phone) == 10:
-            self.value = self.phone = phone
-        else:
-            print('Error phonenumber\'s lenght must be 10 symbols')
-
     @property
     def phone(self):
-        return self.__phone
+        return self.__value
 
     @phone.setter
     def phone(self, phone):
@@ -49,10 +42,6 @@ class Phone(Field):
 
 
 class Birthday(Field):
-    def __init__(self, birthday):
-        self.__birthday = None
-        self.birthday = birthday
-
     @property
     def birthday(self):
         return self.__birthday
@@ -88,7 +77,7 @@ class Record:
                 return number
 
     def __str__(self):
-        return f"Contact name: {self.name.value}, phones: {'; '.join(p.phone for p in self.phones)}"
+        return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
     def days_to_birthday(self):
         today = datetime.now().date()
